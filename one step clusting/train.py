@@ -9,7 +9,7 @@ import torch
 import scipy.io
 import scipy.io as sio
 import warnings
-import constrastive_loss
+import contrastive_loss1
 import networks
 
 #数据导入
@@ -21,4 +21,18 @@ warnings.filterwarnings("ignore")
 
 #训练准备
 loss_device = torch.device('cuda')
+
+#模型的超惨数
+train_num  = 4
+temperature = 1
+class_num   = 10
+epoch = 111
+view = 3
+K0 = None
+
+
+#模型参数初始话
+model = networks.Networks(train_num,class_num,view, K0)
+loss_E_and_G = contrastive_loss1.InstanceLoss2(class_num, temperature, loss_device)
+
 
