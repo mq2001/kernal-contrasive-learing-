@@ -11,6 +11,8 @@ import scipy.io as sio
 import warnings
 import contrastive_loss1
 import networks
+import kernalloss
+import KNN
 
 #数据导入
 filepath = ''   #文件路径
@@ -29,10 +31,14 @@ class_num   = 10
 epoch = 111
 view = 3
 K0 = None
+K = 5
+
 
 
 #模型参数初始话
+K0,neibor = KNN.KNN(sample, K)
 model = networks.Networks(train_num,class_num,view, K0)
 loss_E_and_G = contrastive_loss1.InstanceLoss2(class_num, temperature, loss_device)
+loss_kernel = kernalloss.kernelloss(neibor, train_num, loss_device, temperature)
 
 
